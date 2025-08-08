@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <title>Vincent Ariel - Art</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;700&display=swap" rel="stylesheet">
+    <!-- EB Garamond for text, Anton for header -->
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;700&family=Anton&display=swap" rel="stylesheet">
     <style>
         html, body {
             height: 100%;
             margin: 0;
             padding: 0;
-            background: #f8f7f2;
-            color: #222;
+            background: #181b22; /* Very dark slate grey */
+            color: #ff2ec8; /* Neon punkish pink for text */
             font-family: 'EB Garamond', Garamond, serif;
             scroll-behavior: smooth;
         }
@@ -34,7 +35,7 @@
             align-items: center;
             justify-content: center;
             z-index: 2;
-            background: #f8f7f2;
+            background: #181b22;
             transition: transform 0.8s cubic-bezier(.65,.01,.36,1), opacity 0.6s;
         }
         .business-card-wrapper.hide {
@@ -43,19 +44,40 @@
             pointer-events: none;
         }
         .card {
-            background: #f8f7f2;
-            border: 1px solid #e3e1db;
-            box-shadow: 0 2px 16px rgba(85, 85, 85, 0.07);
+            background: #181b22;
+            border: 1px solid #222533;
+            box-shadow: 0 2px 16px rgba(85, 85, 85, 0.18);
             padding: 3em 2em;
             max-width: 420px;
             width: 90vw;
             border-radius: 8px;
         }
-        h1 {
-            font-size: 2em;
-            font-weight: 700;
-            letter-spacing: 1px;
-            margin: 0 0 0.2em 0;
+        /* Header: twice as large, left aligned, one piece, spacing between words reduced by 33.3% */
+        .header-vincent-ariel {
+            font-family: 'Anton', Impact, 'Arial Black', sans-serif;
+            font-size: 2.4em; /* 2x previous 1.2em */
+            font-weight: 400;
+            letter-spacing: 2.25px; /* 12.5% wider than original 2px */
+            color: #39ff14;
+            text-shadow: 0 0 8px #39ff14, 0 0 16px #39ff1488;
+            text-transform: uppercase;
+            display: block;
+            text-align: left;
+            margin-bottom: 1em;
+        }
+        .header-vincent-ariel .vincent {
+            font-stretch: condensed;
+            font-variation-settings: 'wdth' 82.5;
+        }
+        .header-vincent-ariel .ariel {
+    margin-left: 0.33em; /* just a hair more than a space */
+    font-stretch: condensed;
+    font-variation-settings: 'wdth' 82.5;
+}
+        }
+        section, .contact, .contact h3, .contact a, p {
+            color: #ff2ec8;
+            text-shadow: 0 0 6px #ff2ec8aa;
         }
         .contact {
             margin-top: 2.5em;
@@ -64,13 +86,13 @@
             font-size: 1em;
             font-weight: 700;
             margin-bottom: 0.5em;
-            color: #847d6b;
+            color: #ff2ec8;
             letter-spacing: 0.5px;
         }
         .contact a {
-            color: #222;
+            color: #ff2ec8;
             text-decoration: none;
-            border-bottom: 1px dotted #b5b5b5;
+            border-bottom: 1px dotted #ff2ec8;
         }
         .gallery-container {
             width: 100%;
@@ -97,18 +119,22 @@
             max-width: 420px;
             object-fit: contain;
             border-radius: 6px;
-            box-shadow: 0 2px 12px rgba(85,85,85,0.09);
-            border: 1px solid #e3e1db;
-            background: #f8f7f2;
-            transition: box-shadow 0.2s;
+            box-shadow: 0 2px 12px #39ff1422, 0 0 16px #ff2ec866;
+            border: 2px solid #39ff14;
+            background: #181b22;
+            transition: box-shadow 0.2s, border-color 0.2s;
         }
         .gallery-img:hover {
-            box-shadow: 0 4px 18px rgba(85,85,85,0.18);
+            box-shadow: 0 4px 30px #ff2ec8cc, 0 0 24px #39ff14cc;
+            border-color: #ff2ec8;
         }
         @media (max-width: 500px) {
             .card,
             .gallery-container {
                 max-width: 98vw;
+            }
+            .header-vincent-ariel {
+                font-size: 2em;
             }
         }
     </style>
@@ -116,15 +142,17 @@
 <body>
     <div class="business-card-wrapper" id="businessCard">
         <div class="card">
-            <h1>Vincent Ariel</h1>
+            <div class="header-vincent-ariel">
+                <span class="vincent">Vincent</span><span class="ariel">Ariel</span>
+            </div>
             <section>
-                <p>Welcome to my art portfolio.</p>
+                <p>Welcome to my portfolio.</p>
                 <p>More coming soon.</p>
             </section>
             <section class="contact">
-                <h3>Contact</h3>
+                <h3>Contact me:</h3>
                 <p>Email: <a href="mailto:vincent.legitimate@gmail.com">vincent.legitimate@gmail.com</a></p>
-                <p>↓↓↓          ↓↓↓          ↓↓↓</p>
+                <p> ↧↧↧ ↧↧↧ ↧↧↧ </p>
             </section>
         </div>
     </div>
