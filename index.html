@@ -4,18 +4,43 @@
     <meta charset="UTF-8">
     <title>Vincent Ariel - Art</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Garamond font via Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            background: #f8f7f2; /* subtle off-white, "bone" */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background: #f8f7f2;
             color: #222;
             font-family: 'EB Garamond', Garamond, serif;
-            margin: 0;
+            scroll-behavior: smooth;
+        }
+        body {
             min-height: 100vh;
+        }
+        .container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .business-card-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            z-index: 2;
+            background: #f8f7f2;
+            transition: transform 0.8s cubic-bezier(.65,.01,.36,1), opacity 0.6s;
+        }
+        .business-card-wrapper.hide {
+            transform: translateY(-110%);
+            opacity: 0;
+            pointer-events: none;
         }
         .card {
             background: #f8f7f2;
@@ -32,13 +57,6 @@
             letter-spacing: 1px;
             margin: 0 0 0.2em 0;
         }
-        h2 {
-            font-size: 1.2em;
-            font-weight: 400;
-            margin: 0 0 1.5em 0;
-            color: #7d7a6e;
-            letter-spacing: 0.5px;
-        }
         .contact {
             margin-top: 2.5em;
         }
@@ -54,21 +72,110 @@
             text-decoration: none;
             border-bottom: 1px dotted #b5b5b5;
         }
-        /* Tasteful thickness (border + shadow) */
+        .gallery-container {
+            width: 100%;
+            max-width: 420px;
+            margin: 0 auto;
+            margin-top: 7vh;
+            padding-bottom: 5vh;
+            z-index: 0;
+            opacity: 0;
+            transition: opacity 0.7s;
+        }
+        .gallery-container.show {
+            opacity: 1;
+        }
+        .gallery-scroll {
+            display: flex;
+            flex-direction: column;
+            gap: 5.5em;
+            align-items: center;
+            padding-top: 7em;
+        }
+        .gallery-img {
+            width: 100%;
+            max-width: 420px;
+            object-fit: contain;
+            border-radius: 6px;
+            box-shadow: 0 2px 12px rgba(85,85,85,0.09);
+            border: 1px solid #e3e1db;
+            background: #f8f7f2;
+            transition: box-shadow 0.2s;
+        }
+        .gallery-img:hover {
+            box-shadow: 0 4px 18px rgba(85,85,85,0.18);
+        }
+        @media (max-width: 500px) {
+            .card,
+            .gallery-container {
+                max-width: 98vw;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="card">
-        <h1>Vincent Ariel</h1>
-        <h2>Art Portfolio</h2>
-        <section>
-            <p>Welcome to the online portfolio of Vincent Ariel.</p>
-            <p>More coming soon.</p>
-        </section>
-        <section class="contact">
-            <h3>Contact</h3>
-            <p>Email: <a href="mailto:vincent.legitimate@gmail.com">vincent.legitimate@gmail.com</a></p>
-        </section>
+    <div class="business-card-wrapper" id="businessCard">
+        <div class="card">
+            <h1>Vincent Ariel</h1>
+            <section>
+                <p>Welcome to my art portfolio.</p>
+                <p>More coming soon.</p>
+            </section>
+            <section class="contact">
+                <h3>Contact</h3>
+                <p>Email: <a href="mailto:vincent.legitimate@gmail.com">vincent.legitimate@gmail.com</a></p>
+                <p>↓↓↓          ↓↓↓          ↓↓↓</p>
+            </section>
+        </div>
     </div>
+    <div class="container">
+        <div class="gallery-container" id="gallerySection">
+            <div class="gallery-scroll">
+                <img src="va-site-pics/va1.jpg" alt="Artwork 1" class="gallery-img">
+                <img src="va-site-pics/va2.jpg" alt="Artwork 2" class="gallery-img">
+                <img src="va-site-pics/va3.jpg" alt="Artwork 3" class="gallery-img">
+                <img src="va-site-pics/va4.jpg" alt="Artwork 4" class="gallery-img">
+                <img src="va-site-pics/va5.jpg" alt="Artwork 5" class="gallery-img">
+                <img src="va-site-pics/va6.jpg" alt="Artwork 6" class="gallery-img">
+                <img src="va-site-pics/va7.jpg" alt="Artwork 7" class="gallery-img">
+                <img src="va-site-pics/va8.jpg" alt="Artwork 8" class="gallery-img">
+                <img src="va-site-pics/va9.jpg" alt="Artwork 9" class="gallery-img">
+            </div>
+        </div>
+    </div>
+    <script>
+    let revealed = false;
+
+    function revealGallery() {
+        if (!revealed) {
+            document.getElementById('businessCard').classList.add('hide');
+            document.getElementById('gallerySection').classList.add('show');
+            revealed = true;
+        }
+    }
+
+    function showCard() {
+        if (revealed && window.scrollY === 0) {
+            document.getElementById('businessCard').classList.remove('hide');
+            document.getElementById('gallerySection').classList.remove('show');
+            revealed = false;
+        }
+    }
+
+    // First interaction reveals gallery
+    window.addEventListener('wheel', revealGallery, { passive: true });
+    window.addEventListener('keydown', (e) => {
+        if (!revealed && (e.key === "ArrowDown" || e.key === "PageDown" || e.key === " " )) {
+            revealGallery();
+        }
+    });
+    window.addEventListener('touchstart', revealGallery, { passive: true });
+
+    // Listen for scroll back to top (to show card again)
+    window.addEventListener('scroll', showCard);
+
+    // For accessibility: clicking on the card also reveals the gallery
+    document.getElementById('businessCard').addEventListener('click', revealGallery);
+    </script>
 </body>
 </html>
